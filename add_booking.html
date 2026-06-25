@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}Add Booking{% endblock %}
+{% block crumb %}Bookings{% endblock %}
+{% block heading %}Add booking{% endblock %}
+{% block content %}
+<div class="regcard">
+    <div class="regcard-head">
+        <span>Booking slip</span>
+        <span class="tag">New entry</span>
+    </div>
+    <div class="regcard-body">
+        <form method="POST">
+            <div class="field">
+                <label for="customerid">Customer ID</label>
+                <input id="customerid" type="text" name="customerid" required>
+                <div class="hint">Must match an already-registered customer — this is not the Room ID.</div>
+            </div>
+            <div class="field">
+                <label for="dateofbooking">Date of booking</label>
+                <input id="dateofbooking" type="date" name="dateofbooking" required>
+            </div>
+            <div class="field">
+                <label for="noofdays">Number of nights</label>
+                <input id="noofdays" type="number" name="noofdays" required>
+            </div>
+            <div class="field">
+                <label for="roomtype">Room type</label>
+                <input id="roomtype" type="text" name="roomtype" required>
+                <div class="hint">Must exactly match an existing room type and rate.</div>
+            </div>
+            <div class="form-actions">
+                <button type="submit" class="btn btn-brass">Save booking</button>
+                <a href="{{ url_for('list_bookings') }}" class="link-cancel">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

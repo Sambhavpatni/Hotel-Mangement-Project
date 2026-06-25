@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}Log Facility Usage{% endblock %}
+{% block crumb %}Facilities{% endblock %}
+{% block heading %}Log usage{% endblock %}
+{% block content %}
+<div class="regcard">
+    <div class="regcard-head">
+        <span>Facility usage slip</span>
+        <span class="tag">Adds to next bill</span>
+    </div>
+    <div class="regcard-body">
+        <form method="POST">
+            <div class="field">
+                <label for="customerid">Customer ID</label>
+                <input id="customerid" type="text" name="customerid" required>
+                <div class="hint">Must match an already-registered customer.</div>
+            </div>
+            <div class="field">
+                <label for="facilityname">Facility</label>
+                <select id="facilityname" name="facilityname" class="form-select" required
+                        style="width:100%; padding:10px 12px; border:1px solid var(--line); border-radius:8px; background:var(--linen); font-family:var(--font-body); font-size:14px; color:var(--ink);">
+                    {% for f in facilities %}
+                    <option value="{{ f.name }}">{{ f.name }} — {{ "Complimentary" if f.charge == 0 else "₹" + "{:,}".format(f.charge) }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="field">
+                <label for="usagedate">Date used</label>
+                <input id="usagedate" type="date" name="usagedate" required>
+            </div>
+            <div class="form-actions">
+                <button type="submit" class="btn btn-brass">Log usage</button>
+                <a href="{{ url_for('list_facilities') }}" class="link-cancel">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

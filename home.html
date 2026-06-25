@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %}Dashboard{% endblock %}
+{% block crumb %}Front Desk{% endblock %}
+{% block heading %}Dashboard{% endblock %}
+{% block content %}
+<div class="stat-grid">
+    <div class="stat-tile">
+        <div class="label">Rooms on file</div>
+        <div class="num">{{ counts.room }}</div>
+        <a class="go" href="{{ url_for('list_rooms') }}">View rooms &rarr;</a>
+    </div>
+    <div class="stat-tile">
+        <div class="label">Guests registered</div>
+        <div class="num">{{ counts.customer }}</div>
+        <a class="go" href="{{ url_for('list_customers') }}">View guests &rarr;</a>
+    </div>
+    <div class="stat-tile">
+        <div class="label">Active bookings</div>
+        <div class="num">{{ counts.bookingrecord }}</div>
+        <a class="go" href="{{ url_for('list_bookings') }}">View bookings &rarr;</a>
+    </div>
+    <div class="stat-tile">
+        <div class="label">Facilities offered</div>
+        <div class="num">{{ counts.facility }}</div>
+        <a class="go" href="{{ url_for('list_facilities') }}">View facilities &rarr;</a>
+    </div>
+    <div class="stat-tile">
+        <div class="label">Facility uses logged</div>
+        <div class="num">{{ counts.facilityusage }}</div>
+        <a class="go" href="{{ url_for('list_facilities') }}">View usage log &rarr;</a>
+    </div>
+    <div class="stat-tile">
+        <div class="label">Customer bills generated</div>
+        <div class="num">{{ counts.customerbill }}</div>
+        <a class="go" href="{{ url_for('list_bills') }}">View bills &rarr;</a>
+    </div>
+    <div class="stat-tile">
+        <div class="label">Cancellations logged</div>
+        <div class="num">{{ counts.cancellation }}</div>
+        <a class="go" href="{{ url_for('list_cancellations') }}">View cancellations &rarr;</a>
+    </div>
+</div>
+{% endblock %}

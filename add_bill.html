@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Generate Bill{% endblock %}
+{% block crumb %}Customer Bill{% endblock %}
+{% block heading %}Generate bill{% endblock %}
+{% block content %}
+<div class="regcard">
+    <div class="regcard-head">
+        <span>Billing calculation</span>
+        <span class="tag">From booking + facilities</span>
+    </div>
+    <div class="regcard-body">
+        <form method="POST">
+            <div class="field">
+                <label for="customerid">Customer ID</label>
+                <input id="customerid" type="text" name="customerid" required>
+                <div class="hint">Pulls their booking plus any logged facility usage, and totals the charges.</div>
+            </div>
+            <div class="form-actions">
+                <button type="submit" class="btn btn-brass">Generate</button>
+                <a href="{{ url_for('list_bills') }}" class="link-cancel">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

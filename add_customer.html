@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}Add Customer{% endblock %}
+{% block crumb %}Customers{% endblock %}
+{% block heading %}Add customer{% endblock %}
+{% block content %}
+<div class="regcard">
+    <div class="regcard-head">
+        <span>Guest registration</span>
+        <span class="tag">New entry</span>
+    </div>
+    <div class="regcard-body">
+        <form method="POST">
+            <div class="field">
+                <label for="customerid">Customer ID</label>
+                <input id="customerid" type="number" name="customerid" required>
+            </div>
+            <div class="field">
+                <label for="name">Full name</label>
+                <input id="name" type="text" name="name" required>
+            </div>
+            <div class="field">
+                <label for="phoneno">Phone number</label>
+                <input id="phoneno" type="text" name="phoneno" required>
+            </div>
+            <div class="field">
+                <label for="rtype">Room type</label>
+                <input id="rtype" type="text" name="rtype" required>
+            </div>
+            <div class="field">
+                <label for="rcharge">Room rate (₹)</label>
+                <input id="rcharge" type="number" name="rcharge" required>
+            </div>
+            <div class="form-actions">
+                <button type="submit" class="btn btn-brass">Save customer</button>
+                <a href="{{ url_for('list_customers') }}" class="link-cancel">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

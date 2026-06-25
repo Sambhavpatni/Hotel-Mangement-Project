@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Bookings{% endblock %}
+{% block crumb %}Front Desk{% endblock %}
+{% block heading %}Bookings{% endblock %}
+{% block topbar_action %}<a href="{{ url_for('add_booking') }}" class="btn btn-brass">+ Add booking</a>{% endblock %}
+{% block content %}
+<div class="panel">
+    <table class="ledger">
+        <thead>
+            <tr><th>Customer ID</th><th>Date booked</th><th>Nights</th><th>Room type</th><th>Rate / night</th><th></th></tr>
+        </thead>
+        <tbody>
+            {% for b in bookings %}
+            <tr>
+                <td class="num-cell">{{ b.customerid }}</td>
+                <td>{{ b.dateofbooking }}</td>
+                <td class="num-cell">{{ b.noofdays }}</td>
+                <td><span class="keytag">{{ b.roomtype }}</span></td>
+                <td class="num-cell">₹{{ "{:,}".format(b.roomcharge) }}</td>
+                <td><a href="{{ url_for('delete_booking', booking_id=b.id) }}" class="btn btn-ghost btn-sm">Remove</a></td>
+            </tr>
+            {% else %}
+            <tr class="empty-row"><td colspan="6">No bookings yet. Add a room first, then book a guest into it.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}Customer Bill{% endblock %}
+{% block crumb %}Front Desk{% endblock %}
+{% block heading %}Customer Bill{% endblock %}
+{% block topbar_action %}<a href="{{ url_for('add_bill') }}" class="btn btn-brass">+ Generate bill</a>{% endblock %}
+{% block content %}
+<div class="panel table-scroll">
+    <table class="ledger">
+        <thead>
+            <tr>
+                <th>Customer ID</th><th>Room type</th><th>Nights</th><th>Rate / night</th>
+                <th>Facilities used</th><th>Facility charges</th><th>Service</th><th>Grand total</th><th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for b in bills %}
+            <tr>
+                <td class="num-cell">{{ b.customerid or "—" }}</td>
+                <td><span class="keytag">{{ b.roomtype }}</span></td>
+                <td class="num-cell">{{ b.noofdays }}</td>
+                <td class="num-cell">₹{{ "{:,}".format(b.roomcharge) }}</td>
+                <td>
+                    {% if b.facilities %}
+                        {% for name in b.facilities.split(", ") %}<span class="keytag tag-teal">{{ name }}</span>{% endfor %}
+                    {% else %}
+                        <span class="muted">None</span>
+                    {% endif %}
+                </td>
+                <td class="num-cell">₹{{ "{:,}".format(b.facilitycharges or 0) }}</td>
+                <td class="num-cell">₹{{ "{:,}".format(b.service) }}</td>
+                <td class="num-cell"><strong>₹{{ "{:,}".format(b.totalroomcharge) }}</strong></td>
+                <td><a href="{{ url_for('delete_bill', bill_id=b.id) }}" class="btn btn-ghost btn-sm">Remove</a></td>
+            </tr>
+            {% else %}
+            <tr class="empty-row"><td colspan="9">No bills generated yet. Generate one from an existing booking.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block title %}Facilities{% endblock %}
+{% block crumb %}Front Desk{% endblock %}
+{% block heading %}Facilities{% endblock %}
+{% block topbar_action %}
+<div style="display:flex; gap:10px;">
+    <a href="{{ url_for('add_facility_usage') }}" class="btn btn-brass">+ Log usage</a>
+    <a href="{{ url_for('add_facility') }}" class="btn btn-ghost">+ Add facility</a>
+</div>
+{% endblock %}
+{% block content %}
+
+<div class="page-head"><h2>Amenities catalog</h2></div>
+<div class="panel table-scroll" style="margin-bottom:32px;">
+    <table class="ledger">
+        <thead>
+            <tr><th>Facility</th><th>Category</th><th>Charge</th><th></th></tr>
+        </thead>
+        <tbody>
+            {% for f in facilities %}
+            <tr>
+                <td>{{ f.name }}</td>
+                <td><span class="keytag">{{ f.category }}</span></td>
+                <td class="num-cell">
+                    {% if f.charge == 0 %}
+                        <span class="keytag tag-teal">Complimentary</span>
+                    {% else %}
+                        ₹{{ "{:,}".format(f.charge) }}
+                    {% endif %}
+                </td>
+                <td><a href="{{ url_for('delete_facility', facility_id=f.id) }}" class="btn btn-ghost btn-sm">Remove</a></td>
+            </tr>
+            {% else %}
+            <tr class="empty-row"><td colspan="4">No facilities in the catalog yet.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<div class="page-head"><h2>Usage log</h2></div>
+<div class="panel table-scroll">
+    <table class="ledger">
+        <thead>
+            <tr><th>Customer ID</th><th>Facility</th><th>Date used</th><th>Charge</th><th>Billed</th><th></th></tr>
+        </thead>
+        <tbody>
+            {% for u in usage %}
+            <tr>
+                <td class="num-cell">{{ u.customerid }}</td>
+                <td><span class="keytag">{{ u.facilityname }}</span></td>
+                <td>{{ u.usagedate }}</td>
+                <td class="num-cell">{{ "Complimentary" if u.charge == 0 else "₹" + "{:,}".format(u.charge) }}</td>
+                <td>
+                    {% if u.billed %}<span class="keytag tag-teal">Billed</span>{% else %}<span class="keytag tag-rust">Pending</span>{% endif %}
+                </td>
+                <td><a href="{{ url_for('delete_facility_usage', usage_id=u.id) }}" class="btn btn-ghost btn-sm">Remove</a></td>
+            </tr>
+            {% else %}
+            <tr class="empty-row"><td colspan="6">No facility usage logged yet.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

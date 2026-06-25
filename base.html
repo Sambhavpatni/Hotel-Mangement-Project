@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Aurelia{% endblock %} · Aurelia Front Desk</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="shell">
+        <aside class="rack">
+            <div class="rack-brand">
+                <span class="mark">Aurelia</span>
+                <span class="sub">Front Desk System</span>
+            </div>
+            <nav class="rack-nav">
+                <a class="rack-link {% if request.endpoint == 'home' %}active{% endif %}" href="{{ url_for('home') }}">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.5 12 4l9 7.5"/><path d="M5 10v9h14v-9"/></svg>
+                    Dashboard
+                </a>
+                <a class="rack-link {% if request.endpoint in ['list_rooms','add_room'] %}active{% endif %}" href="{{ url_for('list_rooms') }}">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18v-6a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v6"/><path d="M3 18h18"/><path d="M5 10V7a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v3"/></svg>
+                    Rooms
+                </a>
+                <a class="rack-link {% if request.endpoint in ['list_customers','add_customer'] %}active{% endif %}" href="{{ url_for('list_customers') }}">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.4"/><path d="M5 20c0-3.6 3.1-6 7-6s7 2.4 7 6"/></svg>
+                    Customers
+                </a>
+                <a class="rack-link {% if request.endpoint in ['list_bookings','add_booking'] %}active{% endif %}" href="{{ url_for('list_bookings') }}">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="16" rx="2"/><path d="M3.5 10h17"/><path d="M8 3v4M16 3v4"/></svg>
+                    Bookings
+                </a>
+                <a class="rack-link {% if request.endpoint in ['list_facilities','add_facility','add_facility_usage'] %}active{% endif %}" href="{{ url_for('list_facilities') }}">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.8 5.4L19 10.2l-5.2 1.8L12 17.4l-1.8-5.4L5 10.2l5.2-1.8z"/></svg>
+                    Facilities
+                </a>
+                <a class="rack-link {% if request.endpoint in ['list_bills','add_bill'] %}active{% endif %}" href="{{ url_for('list_bills') }}">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3h10v18l-1.7-1-1.6 1-1.7-1-1.7 1-1.6-1-1.7 1z"/><path d="M9.5 8h5M9.5 11.5h5"/></svg>
+                    Customer Bill
+                </a>
+                <a class="rack-link {% if request.endpoint in ['list_cancellations','add_cancellation'] %}active{% endif %}" href="{{ url_for('list_cancellations') }}">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M9 9l6 6M15 9l-6 6"/></svg>
+                    Cancellations
+                </a>
+            </nav>
+            <div class="rack-foot">Aurelia &middot; Local instance</div>
+        </aside>
+
+        <div class="main">
+            <header class="topbar">
+                <div>
+                    <span class="crumb">{% block crumb %}Front Desk{% endblock %}</span>
+                    <h1>{% block heading %}Dashboard{% endblock %}</h1>
+                </div>
+                {% block topbar_action %}{% endblock %}
+            </header>
+
+            <div class="content">
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                            <div class="flash {{ 'flash-error' if category == 'error' else 'flash-success' }}">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+
+                {% block content %}{% endblock %}
+            </div>
+        </div>
+    </div>
+</body>
+</html>

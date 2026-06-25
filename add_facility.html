@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}Add Facility{% endblock %}
+{% block crumb %}Facilities{% endblock %}
+{% block heading %}Add facility{% endblock %}
+{% block content %}
+<div class="regcard">
+    <div class="regcard-head">
+        <span>New amenity</span>
+        <span class="tag">Catalog entry</span>
+    </div>
+    <div class="regcard-body">
+        <form method="POST">
+            <div class="field">
+                <label for="name">Facility name</label>
+                <input id="name" type="text" name="name" required placeholder="e.g. Rooftop Yoga Deck">
+            </div>
+            <div class="field">
+                <label for="category">Category</label>
+                <input id="category" type="text" name="category" required placeholder="e.g. Wellness, Dining, Recreation">
+            </div>
+            <div class="field">
+                <label for="charge">Charge (₹)</label>
+                <input id="charge" type="number" name="charge" required>
+                <div class="hint">Use 0 if this is complimentary for guests.</div>
+            </div>
+            <div class="form-actions">
+                <button type="submit" class="btn btn-brass">Save facility</button>
+                <a href="{{ url_for('list_facilities') }}" class="link-cancel">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

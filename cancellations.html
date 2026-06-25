@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}Cancellations{% endblock %}
+{% block crumb %}Front Desk{% endblock %}
+{% block heading %}Cancellations{% endblock %}
+{% block topbar_action %}<a href="{{ url_for('add_cancellation') }}" class="btn btn-brass">+ Cancel a booking</a>{% endblock %}
+{% block content %}
+<div class="panel">
+    <table class="ledger">
+        <thead>
+            <tr><th>Customer ID</th><th>Date booked</th><th>Nights</th><th>Room type</th><th>Rate</th><th>Cancelled on</th><th></th></tr>
+        </thead>
+        <tbody>
+            {% for c in items %}
+            <tr>
+                <td class="num-cell">{{ c.customerid }}</td>
+                <td>{{ c.dateofbooking }}</td>
+                <td class="num-cell">{{ c.noofdays }}</td>
+                <td><span class="keytag tag-rust">{{ c.roomtype }}</span></td>
+                <td class="num-cell">₹{{ "{:,}".format(c.roomcharge) }}</td>
+                <td>{{ c.dateofcancellation }}</td>
+                <td><a href="{{ url_for('delete_cancellation', item_id=c.id) }}" class="btn btn-ghost btn-sm">Remove</a></td>
+            </tr>
+            {% else %}
+            <tr class="empty-row"><td colspan="7">No cancellations logged.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
